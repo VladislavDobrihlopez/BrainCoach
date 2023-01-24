@@ -4,5 +4,5 @@ data class GameResults(
     val isWinner: Boolean,
     val countOfRightAnswers: Int,
     val countOfAnswers: Int,
-    val gameSettings: GameSettings,
+    val levelSettings: LevelSettings,
 )
