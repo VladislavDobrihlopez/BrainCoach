@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BrainCoach</string>
+    <string name="next">Next</string>
+    <string name="choose_a_level">Choose a level</string>
 </resources>
