@@ -2,9 +2,9 @@ package com.voitov.braincoach.presentation
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.voitov.braincoach.R
 import com.voitov.braincoach.data.GameRepositoryImpl
 import com.voitov.braincoach.domain.entity.GameResults
@@ -13,10 +13,10 @@ import com.voitov.braincoach.domain.entity.Question
 import com.voitov.braincoach.domain.usecases.GenerateQuestionUseCase
 
 class GameplayViewModel(
-    private val context: Application
-) : AndroidViewModel(context) {
+    private val level: Level,
+    private val application: Application,
+) : ViewModel() {
     private lateinit var timer: CountDownTimer
-    private lateinit var level: Level
     private val repository = GameRepositoryImpl
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private var correctAnswers = 0
@@ -54,15 +54,14 @@ class GameplayViewModel(
     val gameResultsOnFinishingGame: LiveData<GameResults>
         get() = _gameResultsOnFinishingGame
 
-    fun startGame(level: Level) {
-        getLevel(level)
-        getQuestion()
-        startTimer()
+    init {
+        startGame()
     }
 
-    private fun getLevel(level: Level) {
-        this.level = level
+    private fun startGame() {
         _minPercentage.value = level.levelSettings.minPercentageOfRightAnswers
+        getQuestion()
+        startTimer()
     }
 
     private fun startTimer() {
@@ -151,7 +150,7 @@ class GameplayViewModel(
     }
 
     private fun setProgressAnswersValue() = String.format(
-        context.getString(R.string.right_answers),
+        application.getString(R.string.right_answers),
         correctAnswers,
         level.levelSettings.minCountOfRightAnswers
     )

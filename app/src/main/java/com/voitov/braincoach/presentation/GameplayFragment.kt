@@ -7,24 +7,32 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.voitov.braincoach.R
 import com.voitov.braincoach.databinding.FragmentGameplayBinding
 import com.voitov.braincoach.domain.entity.GameResults
 import com.voitov.braincoach.domain.entity.Level
-import com.voitov.braincoach.domain.entity.Question
 
 class GameplayFragment : Fragment() {
     private lateinit var level: Level
-    private lateinit var viewModel: GameplayViewModel
-    private lateinit var question: Question
-    private val textViewOptions = ArrayList<TextView>(6)
+    private val viewModelFactory by lazy {
+        GameplayViewModelFactory(level, requireActivity().application)
+    }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        ).get(
+            GameplayViewModel::class.java
+        )
+    }
+    private val textViewOptions by lazy {
+        ArrayList<TextView>(level.levelSettings.countOfOptions)
+    }
     private var _binding: FragmentGameplayBinding? = null
     private val binding: FragmentGameplayBinding
         get() = _binding ?: throw RuntimeException("FragmentGameplayBinding is null")
@@ -46,13 +54,6 @@ class GameplayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =
-            ViewModelProvider(
-                this,
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-            ).get(
-                GameplayViewModel::class.java
-            )
 
         with(textViewOptions) {
             with(binding) {
@@ -67,11 +68,6 @@ class GameplayFragment : Fragment() {
 
         setupObservers()
         setupListeners()
-        startGame()
-    }
-
-    private fun startGame() {
-        viewModel.startGame(level)
     }
 
     private fun setupListeners() {

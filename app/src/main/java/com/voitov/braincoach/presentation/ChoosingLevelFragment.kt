@@ -12,7 +12,9 @@ import com.voitov.braincoach.databinding.FragmentChooseLevelBinding
 import com.voitov.braincoach.domain.entity.Level
 
 class ChoosingLevelFragment : Fragment() {
-    private lateinit var viewModel: ChoosingLevelViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(ChoosingLevelViewModel::class.java)
+    }
     private lateinit var adapter: LevelsAdapter
     private var _binding: FragmentChooseLevelBinding? = null
     private val binding: FragmentChooseLevelBinding
@@ -20,7 +22,6 @@ class ChoosingLevelFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChoosingLevelViewModel::class.java)
         adapter = LevelsAdapter()
     }
 
