@@ -3,7 +3,6 @@ package com.voitov.braincoach.presentation
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.voitov.braincoach.R
+import androidx.navigation.fragment.findNavController
 import com.voitov.braincoach.databinding.FragmentGameplayBinding
 import com.voitov.braincoach.domain.entity.GameResults
-import com.voitov.braincoach.domain.entity.Level
 
 class GameplayFragment : Fragment() {
-    private lateinit var level: Level
+    private val level by lazy {
+        val args = GameplayFragmentArgs.fromBundle(requireArguments())
+        args.level
+    }
     private val viewModelFactory by lazy {
         GameplayViewModelFactory(level, requireActivity().application)
     }
@@ -36,12 +37,6 @@ class GameplayFragment : Fragment() {
     private var _binding: FragmentGameplayBinding? = null
     private val binding: FragmentGameplayBinding
         get() = _binding ?: throw RuntimeException("FragmentGameplayBinding is null")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArguments()
-        Log.d(TAG, level.toString())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -146,32 +141,10 @@ class GameplayFragment : Fragment() {
     }
 
     private fun launchGameFinishedFragment(gameResults: GameResults) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.fragmentContainerMain, GameFinishedFragment.newInstance(
-                    gameResults
-                )
+        findNavController().navigate(
+            GameplayFragmentDirections.actionGameplayFragmentToGameFinishedFragment(
+                gameResults
             )
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun parseArguments() {
-        requireArguments().getParcelable<Level>(KEY_LEVEL)?.let {
-            level = it
-        }
-    }
-
-    companion object {
-        const val FRAGMENT_NAME = "GameplayFragment"
-        private const val TAG = "GameplayFragment"
-        private const val KEY_LEVEL = "lvl"
-        fun newInstance(level: Level): GameplayFragment {
-            return GameplayFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
-            }
-        }
+        )
     }
 }

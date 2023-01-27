@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.voitov.braincoach.R
 import com.voitov.braincoach.databinding.FragmentHelloBinding
 
@@ -13,9 +14,6 @@ class HelloFragment : Fragment() {
     private val binding: FragmentHelloBinding
         get() = _binding ?: throw RuntimeException("FragmentHelloBinding is null")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,15 +37,6 @@ class HelloFragment : Fragment() {
     }
 
     private fun launchChoosingLevelFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerMain, ChoosingLevelFragment.newInstance())
-            .addToBackStack(ChoosingLevelFragment.FRAGMENT_NAME)
-            .commit()
-    }
-
-    companion object {
-        fun newInstance(): HelloFragment {
-            return HelloFragment()
-        }
+        findNavController().navigate(R.id.action_helloFragment_to_choosingLevelFragment)
     }
 }

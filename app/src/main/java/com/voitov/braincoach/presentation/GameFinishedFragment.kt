@@ -4,30 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.voitov.braincoach.R
 import com.voitov.braincoach.databinding.FragmentGameFinishedBinding
-import com.voitov.braincoach.domain.entity.GameResults
 
 class GameFinishedFragment : Fragment() {
     private var _binding: FragmentGameFinishedBinding? = null
     private val binding: FragmentGameFinishedBinding
         get() = _binding ?: throw RuntimeException("FragmentGameFinishedBinding is null")
-    private lateinit var gameResults: GameResults
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseParams()
-    }
-
-    private fun parseParams() {
-        requireArguments().getParcelable<GameResults>(KEY_GAME_RESULTS)?.let {
-            gameResults = it
-        }
+    private val gameResults by lazy {
+        GameFinishedFragmentArgs.fromBundle(requireArguments()).gameResults
     }
 
     override fun onCreateView(
@@ -46,13 +35,6 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    tryAgain()
-                }
-            })
         binding.buttonRetryGame.setOnClickListener {
             tryAgain()
         }
@@ -100,25 +82,11 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun tryAgain() {
-        requireActivity().supportFragmentManager.popBackStack(
-            GameplayFragment.FRAGMENT_NAME,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+        findNavController().popBackStack()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val KEY_GAME_RESULTS = "game_results"
-        fun newInstance(gameResults: GameResults): GameFinishedFragment {
-            return GameFinishedFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_GAME_RESULTS, gameResults)
-                }
-            }
-        }
     }
 }

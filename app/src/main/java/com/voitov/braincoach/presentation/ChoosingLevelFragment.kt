@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.voitov.braincoach.R
+import androidx.navigation.fragment.findNavController
 import com.voitov.braincoach.databinding.FragmentChooseLevelBinding
 import com.voitov.braincoach.domain.entity.Level
 
@@ -51,16 +51,10 @@ class ChoosingLevelFragment : Fragment() {
     }
 
     private fun launchGameplayFragment(level: Level) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerMain, GameplayFragment.newInstance(level))
-            .addToBackStack(GameplayFragment.FRAGMENT_NAME)
-            .commit()
-    }
-
-    companion object {
-        const val FRAGMENT_NAME = "ChoosingLevelFragment"
-        fun newInstance(): ChoosingLevelFragment {
-            return ChoosingLevelFragment()
-        }
+        findNavController().navigate(
+            ChoosingLevelFragmentDirections.actionChoosingLevelFragmentToGameplayFragment(
+                level
+            )
+        )
     }
 }
