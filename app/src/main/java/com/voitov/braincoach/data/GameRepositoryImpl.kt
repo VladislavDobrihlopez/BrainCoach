@@ -1,7 +1,7 @@
 package com.voitov.braincoach.data
 
-import com.voitov.braincoach.domain.entity.LevelSettings
 import com.voitov.braincoach.domain.entity.Level
+import com.voitov.braincoach.domain.entity.LevelSettings
 import com.voitov.braincoach.domain.entity.Question
 import com.voitov.braincoach.domain.repository.GameRepository
 import kotlin.random.Random
@@ -10,18 +10,18 @@ object GameRepositoryImpl : GameRepository {
     private val levels = listOf<Level>(
         Level(
             0,
-            "Test", LevelSettings(
+            "Тестовый уровень", LevelSettings(
                 20,
                 -20,
                 10,
                 50,
-                20,
+                10,
                 6
             )
         ),
         Level(
             1,
-            "Easy", LevelSettings(
+            "Сложение. Лёгкий ур.", LevelSettings(
                 10,
                 -10,
                 10,
@@ -32,7 +32,7 @@ object GameRepositoryImpl : GameRepository {
         ),
         Level(
             2,
-            "Medium", LevelSettings(
+            "Сложение. Средний ур.", LevelSettings(
                 100,
                 -100,
                 20,
@@ -43,7 +43,7 @@ object GameRepositoryImpl : GameRepository {
         ),
         Level(
             3,
-            "Hard", LevelSettings(
+            "Сложение. Сложный ур.", LevelSettings(
                 1000,
                 -1000,
                 30,
@@ -71,7 +71,7 @@ object GameRepositoryImpl : GameRepository {
 
                 val set = HashSet<Int>(possibleAnswers)
 
-            } while (set.size != 10)
+            } while (set.size != levelSettings.countOfOptions)
 
             return Question(exprValue, visiblePart, possibleAnswers)
         }

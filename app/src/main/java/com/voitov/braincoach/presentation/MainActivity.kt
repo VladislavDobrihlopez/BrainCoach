@@ -14,5 +14,15 @@ class MainActivity : AppCompatActivity() {
 
         val q = GameRepositoryImpl.generateQuestionUseCase(LevelSettings(10, 0, 5, 50, 3, 10))
         Log.d("MainActivity", q.toString())
+
+        if (savedInstanceState == null) {
+            launchHelloFragment()
+        }
+    }
+
+    private fun launchHelloFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerMain, HelloFragment.newInstance())
+            .commit()
     }
 }

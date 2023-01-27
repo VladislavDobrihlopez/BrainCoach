@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.voitov.braincoach.R
 import com.voitov.braincoach.databinding.FragmentHelloBinding
 
 class HelloFragment : Fragment() {
@@ -25,8 +26,28 @@ class HelloFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonContinue.setOnClickListener {
+            launchChoosingLevelFragment()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun launchChoosingLevelFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerMain, ChoosingLevelFragment.newInstance())
+            .addToBackStack(ChoosingLevelFragment.FRAGMENT_NAME)
+            .commit()
+    }
+
+    companion object {
+        fun newInstance(): HelloFragment {
+            return HelloFragment()
+        }
     }
 }

@@ -9,7 +9,7 @@
     tools:context=".presentation.GameFinishedFragment">
 
     <ImageView
-        android:id="@+id/emoji_result"
+        android:id="@+id/imageViewEmojiResult"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_margin="48dp"
@@ -19,43 +19,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        tools:srcCompat="@drawable/ic_smile" />
+        app:srcCompat="@drawable/ic_smile" />
 
     <TextView
         android:id="@+id/textViewRequiredRightAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/required_right_answers"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewCurrentRightAnswers"
-        app:layout_constraintTop_toBottomOf="@id/emoji_result"
-        app:layout_constraintVertical_chainStyle="spread"
-        tools:text="required right answers" />
+        app:layout_constraintTop_toBottomOf="@id/imageViewEmojiResult" />
 
     <TextView
         android:id="@+id/textViewCurrentRightAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/current_right_answers"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewRequiredPercentageOfRightAnswers"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRequiredRightAnswers"
-        tools:text="current right answers" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewRequiredRightAnswers" />
 
     <TextView
         android:id="@+id/textViewRequiredPercentageOfRightAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/required_percentage_of_right_answers"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewCurrentPercentageOfRightAnswers"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentRightAnswers"
-        tools:text="required percentage of right answers" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentRightAnswers" />
 
     <TextView
         android:id="@+id/textViewCurrentPercentageOfRightAnswers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/current_percentage_of_right_answers"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRequiredPercentageOfRightAnswers"
-        tools:text="current percentage of right answers" />
+        app:layout_constraintBottom_toTopOf="@id/buttonRetryGame"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRequiredPercentageOfRightAnswers" />
+
+    <Button
+        android:id="@+id/buttonRetryGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/try_again"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

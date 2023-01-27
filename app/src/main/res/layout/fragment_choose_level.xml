@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,31 +17,39 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/buttonTestLevel"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewLevels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Test level" />
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/level_item" />
 
-    <Button
-        android:id="@+id/buttonEasyLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_green_light"
-        tools:text="Easy level" />
+<!--    <Button-->
+<!--        android:id="@+id/buttonTestLevel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:text="Test level" />-->
 
-    <Button
-        android:id="@+id/buttonNormalLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_orange_light"
-        tools:text="Normal level" />
+<!--    <Button-->
+<!--        android:id="@+id/buttonEasyLevel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="@android:color/holo_green_light"-->
+<!--        tools:text="Easy level" />-->
 
-    <Button
-        android:id="@+id/buttonHardLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_red_light"
-        tools:text="Hard level" />
+<!--    <Button-->
+<!--        android:id="@+id/buttonNormalLevel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="@android:color/holo_orange_light"-->
+<!--        tools:text="Normal level" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonHardLevel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="@android:color/holo_red_light"-->
+<!--        tools:text="Hard level" />-->
 
 </LinearLayout>
