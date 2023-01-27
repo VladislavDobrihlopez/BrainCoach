@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewLevelName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Name" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutExtraInformation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textViewMaxExpressionValue"
+                style="@style/TextViewLevelParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/maxExpressionValue" />
+
+            <TextView
+                android:id="@+id/textViewMinExpressionValue"
+                style="@style/TextViewLevelParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minExpressionValue" />
+
+            <TextView
+                android:id="@+id/textViewMinCountOfRightAnswers"
+                style="@style/TextViewLevelParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minCountOfRightAnswers" />
+
+            <TextView
+                android:id="@+id/textViewMinPercentageOfRightAnswers"
+                style="@style/TextViewLevelParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minPercentageOfRightAnswers" />
+
+            <TextView
+                android:id="@+id/textViewGameTimeInSeconds"
+                style="@style/TextViewLevelParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gameTimeInSeconds" />
+
+            <TextView
+                android:id="@+id/textViewCountOfOptions"
+                style="@style/TextViewLevelParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/countOfOptions" />
+
+            <Button
+                android:id="@+id/buttonLetsGetIsStarted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:text="@string/let_s_get_it_started" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

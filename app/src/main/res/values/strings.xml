@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">BrainCoach</string>
+    <string name="next">Далее</string>
+    <string name="choose_a_level">Выберите режим игры</string>
+    <string name="let_s_get_it_started">Начать игру</string>
+    <string name="maxExpressionValue">Макс. числовое значение: %d</string>
+    <string name="minExpressionValue">Мин. числовое значение: %d</string>
+    <string name="minCountOfRightAnswers">Мин. кол-во верных ответов: %d</string>
+    <string name="minPercentageOfRightAnswers">Мин. процент правильных ответов: %d</string>
+    <string name="gameTimeInSeconds">Время игры в секундах: %d</string>
+    <string name="countOfOptions">Кол-во варинатов ответов: %d</string>
+    <string name="symbolsPattern">%s : %s</string>
+    <string name="try_again">Попробовать снова</string>
+    <string name="right_answers">Правильных ответов %d (минимум %d)</string>
+    <string name="question">\?</string>
+    <string name="title">Тренер вашего мозга</string>
+    <string name="game_rules">Правила игры: перед вами будут представлены 3 фигуры: 2 слева и 1 справа. Необходимо, чтобы результат операции над двумя левыми операндами был равен значению правого числа. Вам необходимо выбирать из предложенных варинатов недостающий операнд</string>
+    <string name="game_example">Пример: пусть у нас режим сложения и в верхней левой фигуре число 7, а справа число -5. Значит, на месте вопросительного знака должно быть число -12, потому что 7 + (-12) = -5</string>
+    <string name="required_right_answers">Необходимое количество правильных ответов: %d</string>
+    <string name="current_right_answers">Ваше количество: %d</string>
+    <string name="required_percentage_of_right_answers">Необходимый процент правильных ответов: %d</string>
+    <string name="current_percentage_of_right_answers">Ваш процент: %d</string>
 </resources>
