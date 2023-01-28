@@ -34,7 +34,7 @@ class GameplayViewModel(
     val progressValueIsEnough: LiveData<Boolean>
         get() = _progressValueIsEnough
 
-    private var _progressAnswers = MutableLiveData<String>("")
+    private var _progressAnswers = MutableLiveData<String>()
     val progressAnswers: LiveData<String>
         get() = _progressAnswers
 
@@ -59,7 +59,8 @@ class GameplayViewModel(
     }
 
     private fun startGame() {
-        _minPercentage.value = level.levelSettings.minPercentageOfRightAnswers
+        setupMinimalRequiredPercentage()
+        updateProgressAnswers()
         getQuestion()
         startTimer()
     }
@@ -154,6 +155,10 @@ class GameplayViewModel(
         correctAnswers,
         level.levelSettings.minCountOfRightAnswers
     )
+
+    private fun setupMinimalRequiredPercentage() {
+        _minPercentage.value = level.levelSettings.minPercentageOfRightAnswers
+    }
 
     private fun updateProgressBarColor() {
         _progressValueIsEnough.value =
