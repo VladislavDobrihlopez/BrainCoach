@@ -26,21 +26,28 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="00:50" />
 
-        <TextView
-            android:id="@+id/textViewVisibleNumber"
-            style="@style/TextViewQuestionPart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_question"
-            android:text="@{String.valueOf(viewModel.question.visiblePart)}"
-            app:layout_constraintBottom_toTopOf="@+id/textViewExpressionResult"
+        <FrameLayout
+            android:id="@+id/frameLayoutVisibleNumber"
+            style="@style/FrameLayoutQuestionStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayoutExpressionResult"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/textViewExpressionResult"
+            app:layout_constraintEnd_toStartOf="@id/frameLayoutExpressionResult"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTimer"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="-5" />
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <TextView
+                android:id="@+id/textViewVisibleNumber"
+                style="@style/TextViewQuestionPart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:text="@{String.valueOf(viewModel.question.visiblePart)}"
+                tools:text="5" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/textViewUnknownNumber"
@@ -51,25 +58,32 @@
             android:text="@string/question"
             app:layout_constraintBottom_toTopOf="@+id/textViewSecondAnswer"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/textViewExpressionResult"
+            app:layout_constraintEnd_toStartOf="@id/frameLayoutExpressionResult"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewExpressionResult" />
+            app:layout_constraintTop_toBottomOf="@+id/frameLayoutExpressionResult" />
 
-        <TextView
-            android:id="@+id/textViewExpressionResult"
-            style="@style/TextViewQuestionPart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_question"
-            android:text="@{String.valueOf(viewModel.question.expressionResult)}"
-            android:textSize="64sp"
+        <FrameLayout
+            android:id="@+id/frameLayoutExpressionResult"
+            style="@style/FrameLayoutQuestionStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/textViewUnknownNumber"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textViewVisibleNumber"
-            app:layout_constraintTop_toBottomOf="@+id/textViewVisibleNumber"
-            tools:text="7" />
+            app:layout_constraintStart_toEndOf="@id/frameLayoutVisibleNumber"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayoutVisibleNumber">
+
+            <TextView
+                android:id="@+id/textViewExpressionResult"
+                style="@style/TextViewQuestionPart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:text="@{String.valueOf(viewModel.question.expressionResult)}"
+                android:textSize="64sp"
+                tools:text="7" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/textViewRightAnswersCounter"
@@ -81,7 +95,8 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/progressBarPercentageOfRightAnswers"
-            app:layout_constraintTop_toBottomOf="@id/textViewUnknownNumber" />
+            app:layout_constraintTop_toBottomOf="@id/textViewUnknownNumber"
+            tools:text="@string/right_answers" />
 
         <ProgressBar
             android:id="@+id/progressBarPercentageOfRightAnswers"
@@ -101,8 +116,8 @@
         <TextView
             android:id="@+id/textViewFirstAnswer"
             style="@style/TextViewOptionStyle"
-            android:background="@color/purple_200"
             onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:background="@color/first_answer"
             android:text="@{viewModel.question.options.get(0).toString()}"
             app:layout_constraintBottom_toTopOf="@id/textViewFourthAnswer"
             app:layout_constraintEnd_toStartOf="@id/textViewSecondAnswer"
@@ -113,7 +128,7 @@
             android:id="@+id/textViewSecondAnswer"
             style="@style/TextViewOptionStyle"
             onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
-            android:background="@color/purple_200"
+            android:background="@color/second_answer"
             android:text="@{viewModel.question.options.get(1).toString()}"
             app:layout_constraintBottom_toTopOf="@id/textViewFifthAnswer"
             app:layout_constraintEnd_toStartOf="@id/textViewThirdAnswer"
@@ -124,7 +139,7 @@
             android:id="@+id/textViewThirdAnswer"
             style="@style/TextViewOptionStyle"
             onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
-            android:background="@color/purple_200"
+            android:background="@color/third_answer"
             android:text="@{viewModel.question.options.get(2).toString()}"
             app:layout_constraintBottom_toTopOf="@id/textViewSixthAnswer"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,8 +150,7 @@
             android:id="@+id/textViewFourthAnswer"
             style="@style/TextViewOptionStyle"
             onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
-            android:background="@color/purple_200"
-            android:backgroundTint="@color/purple_200"
+            android:background="@color/fourth_answer"
             android:text="@{viewModel.question.options.get(3).toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/textViewFifthAnswer"
@@ -147,8 +161,7 @@
             android:id="@+id/textViewFifthAnswer"
             style="@style/TextViewOptionStyle"
             onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
-            android:background="@color/purple_200"
-            android:backgroundTint="@color/purple_200"
+            android:background="@color/fifth_answer"
             android:text="@{viewModel.question.options.get(4).toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/textViewSixthAnswer"
@@ -159,8 +172,7 @@
             android:id="@+id/textViewSixthAnswer"
             style="@style/TextViewOptionStyle"
             onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
-            android:background="@color/purple_200"
-            android:backgroundTint="@color/purple_200"
+            android:background="@color/sixth_answer"
             android:text="@{viewModel.question.options.get(5).toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

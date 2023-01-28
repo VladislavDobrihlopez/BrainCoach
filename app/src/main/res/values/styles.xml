@@ -10,8 +10,13 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="FrameLayoutQuestionStyle" >
+        <item name="android:background">@drawable/circle_question</item>
+    </style>
+
     <style name="TextViewQuestionPart">
         <item name="android:textSize">48sp</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
