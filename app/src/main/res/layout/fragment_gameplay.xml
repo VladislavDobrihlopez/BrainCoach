@@ -1,141 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textViewTimer"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.voitov.braincoach.presentation.GameplayViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="00:50" />
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/textViewVisibleNumber"
-        style="@style/TextViewQuestionPart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/circle_question"
-        app:layout_constraintBottom_toTopOf="@+id/textViewExpressionResult"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/textViewExpressionResult"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTimer"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="-5" />
+        <TextView
+            android:id="@+id/textViewTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.formattedTime}"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="00:50" />
 
-    <TextView
-        android:id="@+id/textViewUnknownNumber"
-        style="@style/TextViewQuestionPart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/circle_question"
-        android:text="@string/question"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSecondAnswer"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/textViewExpressionResult"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewExpressionResult" />
+        <TextView
+            android:id="@+id/textViewVisibleNumber"
+            style="@style/TextViewQuestionPart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_question"
+            android:text="@{String.valueOf(viewModel.question.visiblePart)}"
+            app:layout_constraintBottom_toTopOf="@+id/textViewExpressionResult"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/textViewExpressionResult"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTimer"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="-5" />
 
-    <TextView
-        android:id="@+id/textViewExpressionResult"
-        style="@style/TextViewQuestionPart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/circle_question"
-        android:textSize="64sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewUnknownNumber"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/textViewVisibleNumber"
-        app:layout_constraintTop_toBottomOf="@+id/textViewVisibleNumber"
-        tools:text="7" />
+        <TextView
+            android:id="@+id/textViewUnknownNumber"
+            style="@style/TextViewQuestionPart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_question"
+            android:text="@string/question"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSecondAnswer"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/textViewExpressionResult"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewExpressionResult" />
 
-    <TextView
-        android:id="@+id/textViewRightAnswersCounter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:text="@string/right_answers"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/progressBarPercentageOfRightAnswers"
-        app:layout_constraintTop_toBottomOf="@id/textViewUnknownNumber" />
+        <TextView
+            android:id="@+id/textViewExpressionResult"
+            style="@style/TextViewQuestionPart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_question"
+            android:text="@{String.valueOf(viewModel.question.expressionResult)}"
+            android:textSize="64sp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewUnknownNumber"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewVisibleNumber"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVisibleNumber"
+            tools:text="7" />
 
-    <ProgressBar
-        android:id="@+id/progressBarPercentageOfRightAnswers"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:secondaryProgressTint="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@id/textViewFirstAnswer"
-        app:layout_constraintTop_toBottomOf="@id/textViewRightAnswersCounter"
-        tools:progress="25"
-        tools:secondaryProgress="50" />
+        <TextView
+            android:id="@+id/textViewRightAnswersCounter"
+            progressAnswersColor="@{viewModel.progressAnswersIsEnough}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="@{viewModel.progressAnswers}"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/progressBarPercentageOfRightAnswers"
+            app:layout_constraintTop_toBottomOf="@id/textViewUnknownNumber" />
 
-    <TextView
-        android:id="@+id/textViewFirstAnswer"
-        style="@style/TextViewOptionStyle"
-        android:background="@color/purple_200"
-        app:layout_constraintBottom_toTopOf="@id/textViewFourthAnswer"
-        app:layout_constraintEnd_toStartOf="@id/textViewSecondAnswer"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="1" />
+        <ProgressBar
+            android:id="@+id/progressBarPercentageOfRightAnswers"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            progressPercentageColor="@{viewModel.progressValueIsEnough}"
+            progressPercentageValue="@{viewModel.progressValue}"
+            secondaryProgressMinPercentageAllowed="@{viewModel.minPercentage}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:secondaryProgressTint="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@id/textViewFirstAnswer"
+            app:layout_constraintTop_toBottomOf="@id/textViewRightAnswersCounter"
+            tools:progress="25"
+            tools:secondaryProgress="50" />
 
-    <TextView
-        android:id="@+id/textViewSecondAnswer"
-        style="@style/TextViewOptionStyle"
-        android:background="@color/purple_200"
-        app:layout_constraintBottom_toTopOf="@id/textViewFifthAnswer"
-        app:layout_constraintEnd_toStartOf="@id/textViewThirdAnswer"
-        app:layout_constraintStart_toEndOf="@id/textViewFirstAnswer"
-        tools:text="2" />
+        <TextView
+            android:id="@+id/textViewFirstAnswer"
+            style="@style/TextViewOptionStyle"
+            android:background="@color/purple_200"
+            onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:text="@{viewModel.question.options.get(0).toString()}"
+            app:layout_constraintBottom_toTopOf="@id/textViewFourthAnswer"
+            app:layout_constraintEnd_toStartOf="@id/textViewSecondAnswer"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="1" />
 
-    <TextView
-        android:id="@+id/textViewThirdAnswer"
-        style="@style/TextViewOptionStyle"
-        android:background="@color/purple_200"
-        app:layout_constraintBottom_toTopOf="@id/textViewSixthAnswer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/textViewSecondAnswer"
-        tools:text="3" />
+        <TextView
+            android:id="@+id/textViewSecondAnswer"
+            style="@style/TextViewOptionStyle"
+            onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:background="@color/purple_200"
+            android:text="@{viewModel.question.options.get(1).toString()}"
+            app:layout_constraintBottom_toTopOf="@id/textViewFifthAnswer"
+            app:layout_constraintEnd_toStartOf="@id/textViewThirdAnswer"
+            app:layout_constraintStart_toEndOf="@id/textViewFirstAnswer"
+            tools:text="2" />
 
-    <TextView
-        android:id="@+id/textViewFourthAnswer"
-        style="@style/TextViewOptionStyle"
-        android:background="@color/purple_200"
-        android:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/textViewFifthAnswer"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="4" />
+        <TextView
+            android:id="@+id/textViewThirdAnswer"
+            style="@style/TextViewOptionStyle"
+            onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:background="@color/purple_200"
+            android:text="@{viewModel.question.options.get(2).toString()}"
+            app:layout_constraintBottom_toTopOf="@id/textViewSixthAnswer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewSecondAnswer"
+            tools:text="3" />
 
-    <TextView
-        android:id="@+id/textViewFifthAnswer"
-        style="@style/TextViewOptionStyle"
-        android:background="@color/purple_200"
-        android:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/textViewSixthAnswer"
-        app:layout_constraintStart_toEndOf="@id/textViewFourthAnswer"
-        tools:text="5" />
+        <TextView
+            android:id="@+id/textViewFourthAnswer"
+            style="@style/TextViewOptionStyle"
+            onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:background="@color/purple_200"
+            android:backgroundTint="@color/purple_200"
+            android:text="@{viewModel.question.options.get(3).toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewFifthAnswer"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="4" />
 
-    <TextView
-        android:id="@+id/textViewSixthAnswer"
-        style="@style/TextViewOptionStyle"
-        android:background="@color/purple_200"
-        android:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/textViewFifthAnswer"
-        tools:text="6" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewFifthAnswer"
+            style="@style/TextViewOptionStyle"
+            onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:background="@color/purple_200"
+            android:backgroundTint="@color/purple_200"
+            android:text="@{viewModel.question.options.get(4).toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewSixthAnswer"
+            app:layout_constraintStart_toEndOf="@id/textViewFourthAnswer"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/textViewSixthAnswer"
+            style="@style/TextViewOptionStyle"
+            onOptionClick="@{(number) -> viewModel.chooseAnswer(number)}"
+            android:background="@color/purple_200"
+            android:backgroundTint="@color/purple_200"
+            android:text="@{viewModel.question.options.get(5).toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewFifthAnswer"
+            tools:text="6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
