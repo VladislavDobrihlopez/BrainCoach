@@ -3,11 +3,12 @@ package com.voitov.braincoach.presentation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.voitov.braincoach.R
+import com.voitov.braincoach.databinding.LevelItemBinding
 import com.voitov.braincoach.domain.entity.Level
 
 class LevelsAdapter : RecyclerView.Adapter<LevelsAdapter.LevelsViewHolder>() {
@@ -20,79 +21,56 @@ class LevelsAdapter : RecyclerView.Adapter<LevelsAdapter.LevelsViewHolder>() {
         }
     var onButtonClick: ((Level) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.level_item, parent, false)
-        return LevelsViewHolder(view)
+        val layout = when (viewType) {
+            DEFAULT_TYPE -> R.layout.level_item
+            else -> throw RuntimeException("Unknown viewType = $viewType")
+        }
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            layout,
+            parent,
+            false
+        )
+        return LevelsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: LevelsViewHolder, position: Int) {
         val level = levels[position]
 
-        with(holder) {
-            textViewLevelName.text = level.name
-            if (level.tapped) {
-                linearLayoutExtraInformation.visibility = View.VISIBLE
-                with(level.levelSettings) {
-                    with(holder.itemView.context) {
-                        textViewMaxExpressionValue.text = getString(
-                            R.string.maxExpressionValue,
-                            maxExpressionValue
-                        )
-                        textViewMinExpressionValue.text = getString(
-                            R.string.minExpressionValue,
-                            minExpressionValue
-                        )
-                        textViewMinCountOfRightAnswers.text = getString(
-                            R.string.minCountOfRightAnswers,
-                            minCountOfRightAnswers
-                        )
-                        textViewMinPercentageOfRightAnswers.text = getString(
-                            R.string.minPercentageOfRightAnswers,
-                            minPercentageOfRightAnswers
-                        )
-                        textViewGameTimeInSeconds.text = getString(
-                            R.string.gameTimeInSeconds,
-                            gameTimeInSeconds
-                        )
-                        textViewCountOfOptions.text = getString(
-                            R.string.countOfOptions,
-                            countOfOptions
-                        )
-                        buttonLetsGetIsStarted.setOnClickListener {
-                            onButtonClick?.invoke(level)
-                        }
+        val binding = holder.binding
+
+        when (binding) {
+            is LevelItemBinding -> {
+                binding.level = level
+                if (level.tapped) {
+                    binding.linearLayoutExtraInformation.visibility = View.VISIBLE
+                    binding.buttonLetsGetIsStarted.setOnClickListener {
+                        onButtonClick?.invoke(level)
                     }
+                } else {
+                    binding.linearLayoutExtraInformation.visibility = View.GONE
                 }
-            } else {
-                linearLayoutExtraInformation.visibility = View.GONE
-            }
-            itemView.setOnClickListener {
-                level.tap()
-                notifyItemChanged(adapterPosition)
             }
         }
+        with(binding) {
+            root.setOnClickListener {
+                level.tap()
+                notifyItemChanged(holder.adapterPosition)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return DEFAULT_TYPE
     }
 
     override fun getItemCount(): Int {
         return levels.size
     }
 
-    class LevelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewLevelName = itemView.findViewById<TextView>(R.id.textViewLevelName)
-        val linearLayoutExtraInformation =
-            itemView.findViewById<LinearLayout>(R.id.linearLayoutExtraInformation)
-        val textViewMaxExpressionValue =
-            itemView.findViewById<TextView>(R.id.textViewMaxExpressionValue)
-        val textViewMinExpressionValue =
-            itemView.findViewById<TextView>(R.id.textViewMinExpressionValue)
-        val textViewMinCountOfRightAnswers =
-            itemView.findViewById<TextView>(R.id.textViewMinCountOfRightAnswers)
-        val textViewMinPercentageOfRightAnswers =
-            itemView.findViewById<TextView>(R.id.textViewMinPercentageOfRightAnswers)
-        val textViewGameTimeInSeconds =
-            itemView.findViewById<TextView>(R.id.textViewGameTimeInSeconds)
-        val textViewCountOfOptions =
-            itemView.findViewById<TextView>(R.id.textViewCountOfOptions)
-        val buttonLetsGetIsStarted =
-            itemView.findViewById<TextView>(R.id.buttonLetsGetIsStarted)
+    class LevelsViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
+
+    companion object {
+        private const val DEFAULT_TYPE = 100
     }
 }
